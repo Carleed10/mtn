@@ -120,7 +120,7 @@
 
     function loadMtnCard(){
         let pin = document.getElementById("dispPin").innerHTML
-        if(!loadMTN.value.startsWith("*555") || !loadMTN.value.endsWith("#") || !loadMTN.value.includes(pin)){
+        if(!loadMTN.value.startsWith("*555*") || !loadMTN.value.endsWith("#") || !loadMTN.value.includes(pin)){
             alert("Invalid Code")
             loadMTN.value = ''
             
