@@ -12,28 +12,29 @@
         .div{
             width: 100%;
             height: 100vh;
-            background-color: yellow;
+            background-color: rgba(255, 255, 255, 0.884);
             display: flex;
             justify-content: center;
             align-items: center;
         }
-        .lol{
-            width: 300px;
+        #lol{
+            width: 650px;
             height: 500px;
             align-items: center;
             display: flex;
             justify-content: center;
-            background-color: rgb(83, 83, 5);
+            background-color: rgb(255,196,35);
+            /* background-color: aqua; */
             background-blend-mode: overlay;
             background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-image: url(MTN-logo-459AAF9482-seeklogo.com.png);
+            border-radius: 6px;
+       
+            
           
         }
-        .lol img{
+        #lol img{
             width: 100px;
-            margin-top: 20px;
+            /* margin-top: 20px; */
         }
         .mom{
             text-align: center;
@@ -42,19 +43,20 @@
         }
         #dispPin{
             height: 20px;
-            margin: 0;
+            margin: 25px 0px 0px 0px;
         }
         .mom h1{
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            font-size: 25px;
-            margin-top: 20px;
+            font-size: 20px;
+            margin-top: 25px;
+            /* color: black; */
         }
         .mom input{
             width: 250px;
             height: 30px;
             border: 0;
             outline: none;
-            padding: 15px;
+            padding: 10px;
             margin-top: 15px;
             border-radius: 4px;
         }
@@ -63,13 +65,25 @@
             font-size: 15px;
         }
         .mom button{
-            padding: 10px;
-            margin-top: 30px;
+            padding: 13px;
+            /* margin-top: 30px; */
             border: 0;
-            background-color: white;
-            color: red;
+            border-radius: 6px;
+            background-color:  red;
+            color: white;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 15px;
+            margin-left: 10px;
+        }
+        #let{
+            background-color: white;
+            color: red;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        #para{
+            color: black;
+            margin-top: 20px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
         }
 
     </style>
@@ -77,29 +91,52 @@
 <body>
     <div class="div">
   
-        <div class="lol">
+        <div id="lol">
 
            <div class="mom">
-            <img src="MTN-logo-459AAF9482-seeklogo.com.png" alt="">
+            
+            <div id="mage">
+                <img src="MTN-logo-459AAF9482-seeklogo.com.png" alt="">
+            </div>
 
             <br>
-            
-            <label for="">Amount</label>
-            <select name="" id="amount">
-                <option value="100">100</option>
-                <option value="200">200</option>
-                <option value="500">500</option>
-                <option value="1000">1000</option>
-            </select>
-    
-            <button onclick="genPin()">Generate Pin</button>
+            <br>
+            <div>
+                <label for="">Network Provider</label>
+                <!-- <br> -->
+                <select name="" id="network" onchange="ChangeBackgroundColor()">
+                    <!-- <option value=""></option> -->
+                    <option value="MTN" class="MTN">MTN</option>
+                    <option value="GLO" class="GLO">GLO</option>
+                    <option value="AIRTEL" class="AIRTEL">AIRTEL</option>
+                    <option value="9MOBILE" class="9MOBILE">9MOBILE</option>
+                </select>
+
+
+                <label for="">Amount</label>
+                <!-- <br> -->
+                <select name="" id="amount">
+                    <option value="100">100</option>
+                    <option value="200">200</option>
+                    <option value="500">500</option>
+                    <option value="1000">1000</option>
+                </select>
+            </div>
+            <br>
+      
+         
+
+            <button id="let" onclick="genPin()">GENERATE PIN</button>
             <h1 id="dispPin"></h1>
     
             <h1>Load Airtime</h1>
-            <input type="text" id="loadMTN">
-            <br>
-            <button onclick="loadMtnCard()">Recharge</button>
+            <input type="text" id="loadMTN" placeholder="*311* pin #">
+            <button onclick="loadMtnCard()"><b>RECHARGE</b></button>
+
+            <p id="para"></p>
            </div>
+
+          
 
         </div>
        
@@ -110,25 +147,61 @@
 <script>
     let amount = document.getElementById("amount");
     let loadMTN = document.getElementById("loadMTN");
+    let p = document.getElementById('para')
+    
+    let container = document.getElementById('lol')
+    let page = document.getElementById('mage')
+
+    let balance = 0
+
+   function ChangeBackgroundColor(){
+    let select = document.getElementById('network')
+    let selectValue = select.value
+    // let image = document.getElementById('mage')
+
+    if (selectValue == 'MTN'){
+        container.style.backgroundColor = 'rgb(255,196,35)'
+        page.innerHTML = `<img src="MTN-logo-459AAF9482-seeklogo.com.png" alt="">`
+
+    }
+    else if (selectValue == 'GLO'){
+        container.style.backgroundColor = 'rgb(48,176,38)'
+        page.innerHTML = `<img src="Glo_button.png" alt="">`
+
+    }
+    else if (selectValue == 'AIRTEL'){
+        container.style.backgroundColor = 'red'
+        page.innerHTML = `<img src="png-transparent-airtel-logo-thumbnail.png" alt="">`
+
+    }
+    else if (selectValue == '9MOBILE'){
+        container.style.backgroundColor = 'rgb(15,32,16)'
+        page.innerHTML = `<img src="9Mobile-Telecom-Logo.jpg" alt="">`
+    }
+   }
 
     function genPin(){
         let pin = Math.floor(Math.random()* 10000000000000);
         dispPin.innerHTML = pin
-        alert(`You have generated MTN voucher of ${amount.value}`)
+        alert(`You have generated ${network.value} voucher of ${amount.value}`)
         
     }
 
+
+
     function loadMtnCard(){
         let pin = document.getElementById("dispPin").innerHTML
-        if(!loadMTN.value.startsWith("*555*") || !loadMTN.value.endsWith("#") || !loadMTN.value.includes(pin)){
+        if(!loadMTN.value.startsWith("*311*") || !loadMTN.value.endsWith("#") || !loadMTN.value.includes(pin)){
             alert("Invalid Code")
             loadMTN.value = ''
             
         }
         else{
-            alert(`MTN voucher of ${amount.value} has been recharged`)
+            alert(`${network.value}voucher of ${amount.value} has been recharged`)
             loadMTN.value = ''
             dispPin.innerHTML = ''
+            para.innerHTML = `Yello, your airtime balance is: #${balance += Number(amount.value)}.00 `
+
         }
     }
 
